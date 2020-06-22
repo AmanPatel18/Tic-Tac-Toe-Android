@@ -3,4 +3,6 @@
     <string name="heading">\t\t\tWelcome To \n Tic Tac Toe</string>
     <string name="grid">Our Main Grid</string>
     <string name="status">X\'s Turn - Tap to play</string>
+    <string name="reset">RESET</string>
+    <string name="start">START</string>
 </resources>

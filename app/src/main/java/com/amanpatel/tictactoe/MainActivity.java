@@ -8,13 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    boolean gameActive=true;
+    boolean gameActive=false;
     /*
     Player Representations
     0 - X
     1 - O
     */
-    int activePlayer=0;
+    int activePlayer;
     /*
     State Meanings
     0 - X
@@ -25,59 +25,62 @@ public class MainActivity extends AppCompatActivity {
     int[][] winningPositions={{0,1,2},{3,4,5},{6,7,8},
                               {0,3,6},{1,4,7},{2,5,8},
                               {0,4,8},{2,4,6}};
+
+    public void gameStart(View view)
+    {
+        gameReset(view);
+    }
     public void playerTap(View view){
-        ImageView img = (ImageView) view;
-        int tappedImages=Integer.parseInt(img.getTag().toString());
-        if(!gameActive)
+        if(gameActive==true)
         {
-            gameReset(view);
-        }
-        if(gameState[tappedImages]==2)
-        {
-            gameState[tappedImages]=activePlayer;
-            img.setTranslationY(-1000f);
-            if(activePlayer==0)
-            {
-                img.setImageResource(R.drawable.cross);
-                activePlayer=1;
-                TextView status=findViewById(R.id.status);
-                status.setText("O's Turn- Tap to play");
+            ImageView img = (ImageView) view;
+            int tappedImages = Integer.parseInt(img.getTag().toString());
+            if (gameActive == false) {
+                gameReset(view);
             }
-            else
-            {
-                img.setImageResource(R.drawable.circle);
-                activePlayer=0;
-                TextView status=findViewById(R.id.status);
-                status.setText("X's Turn- Tap to play");
-            }
-            img.animate().translationYBy(1000f).setDuration(300);
-        }
-        // Check if any player has won
-        for (int[] winningPositions: winningPositions)
-        {
-            if(gameState[winningPositions[0]]==gameState[winningPositions[1]]&&
-                    gameState[winningPositions[1]]==gameState[winningPositions[2]]&&
-                    gameState[winningPositions[0]]!=2)
-            {
-                //Somebody has won! - Find out who!
-                String winnerStr;
-                gameActive=false;
-                if(gameState[winningPositions[0]]==0)
-                {
-                    winnerStr= "X has won!";
+            if (gameState[tappedImages] == 2) {
+                gameState[tappedImages] = activePlayer;
+                img.setTranslationY(-1000f);
+                if (activePlayer == 0) {
+                    img.setImageResource(R.drawable.cross);
+                    activePlayer = 1;
+                    TextView status = findViewById(R.id.status);
+                    status.setText("O's Turn- Tap to play");
+                } else {
+                    img.setImageResource(R.drawable.circle);
+                    activePlayer = 0;
+                    TextView status = findViewById(R.id.status);
+                    status.setText("X's Turn- Tap to play");
                 }
-                else
-                {
-                    winnerStr="O has won!";
-                }
-                //update the status bar for winner announcement
-                TextView status=findViewById(R.id.status);
-                status.setText(winnerStr);
+                img.animate().translationYBy(1000f).setDuration(300);
             }
-
+            // Check if any player has won
+            for (int[] winningPositions : winningPositions)
+            {
+                if (gameState[winningPositions[0]] == gameState[winningPositions[1]] &&
+                        gameState[winningPositions[1]] == gameState[winningPositions[2]] &&
+                        gameState[winningPositions[0]] != 2)
+                {
+                    //Somebody has won! - Find out who!
+                    String winnerStr;
+                    if (gameState[winningPositions[0]] == 0)
+                    {
+                        winnerStr = "X has won!";
+                    }
+                    else {
+                        winnerStr = "O has won!";
+                    }
+                    //update the status bar for winner announcement
+                    TextView status = findViewById(R.id.status);
+                    status.setText(winnerStr);
+                    gameActive=false;
+                }
+            }
         }
-
-
+        else{
+            TextView status=findViewById(R.id.status);
+            status.setText("Press the start button!");
+        }
     }
     public void gameReset(View view)
     {
