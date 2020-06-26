@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
+    boolean restart_case=false;
     boolean gameActive=false;
     /*
     Player Representations
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity
     {
         if(gameActive==false)
         {
+            Button start =findViewById(R.id.start);
+            start.setText("START");
             gameActive=true;
             activePlayer=0;
             for (int i=0;i<gameState.length;i++)
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity
     }
     public void playerTap(View view)
     {
-        if(gameActive==true)
+        if (gameActive == true)
         {
             ImageView img = (ImageView) view;
             int tappedImages = Integer.parseInt(img.getTag().toString());
@@ -109,45 +113,60 @@ public class MainActivity extends AppCompatActivity
                     String winnerStr;
                     if (gameState[winningPositions[0]] == 0)
                     {
-                        winnerStr = "X has won!";
+                        winnerStr = "X has won! Game Over!";
                     }
                     else
                     {
-                        winnerStr = "O has won!";
+                        winnerStr = "O has won! Game Over!";
                     }
+                    //changing the text on start button on game over
+                    Button start = findViewById(R.id.start);
+                    start.setText("Restart");
+                    restart_case = true;
                     //update the status bar for winner announcement
                     TextView status = findViewById(R.id.status);
                     status.setText(winnerStr);
-                    gameActive=false;
+                    gameActive = false;
                 }
                 else
                 {
-                    int count=0;
-                    for(int i=0;i<gameState.length;i++)
+                    int count = 0;
+                    for (int i = 0; i < gameState.length; i++)
                     {
-                       if(gameState[i]!=2)
-                       {
-                           count++;
-                       }
+                        if (gameState[i] != 2)
+                        {
+                            count++;
+                        }
                     }
-                    if(count==9)
+                    if (count == 9)
                     {
                         TextView status = findViewById(R.id.status);
-                        status.setText("Draw!");
-                        gameActive=false;
+                        status.setText("Draw! Game Over!");
+                        Button start = findViewById(R.id.start);
+                        start.setText("Restart");
+                        restart_case = true;
+                        gameActive = false;
                     }
                 }
             }
         }
         else
         {
-            TextView status=findViewById(R.id.status);
-            status.setText("Press the start button!");
+            TextView status = findViewById(R.id.status);
+            if(restart_case==true)
+            {
+                status.setText("Press the Restart button!");
+            }
+            else
+            {
+                status.setText("Press the start button!");
+            }
         }
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
