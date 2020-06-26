@@ -31,28 +31,46 @@ public class MainActivity extends AppCompatActivity
     {
         if(gameActive==false)
         {
-            gameReset(view);
+            gameActive=true;
+            activePlayer=0;
+            for (int i=0;i<gameState.length;i++)
+            {
+                gameState[i]=2;
+            }
+            ((ImageView)findViewById(R.id.imageView0)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView1)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView2)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView3)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView4)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView5)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView6)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView7)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView8)).setImageResource(0);
+            TextView status=findViewById(R.id.status);
+            status.setText("X's Turn- Tap to play");
         }
     }
     public void gameReset(View view)
     {
-        gameActive=true;
-        activePlayer=0;
-        for (int i=0;i<gameState.length;i++)
+        if(gameActive==true)
         {
-            gameState[i]=2;
+            activePlayer=0;
+            for (int i=0;i<gameState.length;i++)
+            {
+                gameState[i]=2;
+            }
+            ((ImageView)findViewById(R.id.imageView0)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView1)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView2)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView3)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView4)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView5)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView6)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView7)).setImageResource(0);
+            ((ImageView)findViewById(R.id.imageView8)).setImageResource(0);
+            TextView status=findViewById(R.id.status);
+            status.setText("X's Turn- Tap to play");
         }
-        ((ImageView)findViewById(R.id.imageView0)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView1)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView2)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView3)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView4)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView5)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView6)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView7)).setImageResource(0);
-        ((ImageView)findViewById(R.id.imageView8)).setImageResource(0);
-        TextView status=findViewById(R.id.status);
-        status.setText("X's Turn- Tap to play");
     }
     public void playerTap(View view)
     {
